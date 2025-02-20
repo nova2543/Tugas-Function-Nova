@@ -1,0 +1,245 @@
+<!-- 1.Buat sebuah function untuk menghitung jumlah diskon dan jumlah nominal yang harus dibayarkan dari penjualan sebuah produk
+
+ 2.Buat sebuah function untuk konversi suhu
+ 
+ 3.Buat sebuah function yg bisa otomatis menghitung dua buah angka berdasarkan simbol yang diinputkan, seperti kalkulator
+
+ 4.Buat sebuah function untuk dapat menampilkan data dengan desain yg baik seperti template,analogikan tampilan KTP -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Tugas Function JS</title>
+     <style>
+         body {
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+             margin: 0;
+             padding: 20px;
+             background-color: #f4f7fa;
+             color: #333;
+         }
+ 
+         h2 {
+             color: #00796b;
+             font-size: 24px;
+         }
+ 
+         .container {
+             margin: 20px 0;
+             padding: 20px;
+             background-color: #fff;
+             border-radius: 8px;
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+             width: 100%;
+             max-width: 600px;
+             margin-left: auto;
+             margin-right: auto;
+         }
+ 
+         .result {
+             margin-top: 10px;
+             padding: 10px;
+             background-color: #e1f5fe;
+             border-radius: 5px;
+             font-size: 16px;
+             font-weight: bold;
+         }
+ 
+         input, select, button {
+             padding: 12px;
+             margin: 10px 0;
+             border: 1px solid #ddd;
+             border-radius: 5px;
+             width: 100%;
+             font-size: 16px;
+         }
+ 
+         button {
+             background-color: #00796b;
+             color: white;
+             cursor: pointer;
+             transition: background-color 0.3s;
+         }
+ 
+         button:hover {
+             background-color: #004d40;
+         }
+ 
+         .ktp-container {
+             border: 1px solid #00796b;
+             padding: 20px;
+             width: 100%;
+             max-width: 350px;
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+             border-radius: 15px;
+             background-color: #ffffff;
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+             margin: 20px auto;
+         }
+ 
+         .ktp-container h2 {
+             text-align: center;
+             color: #00796b;
+         }
+ 
+         .ktp-container p {
+             font-size: 16px;
+             margin: 10px 0;
+         }
+ 
+         .ktp-container strong {
+             font-weight: bold;
+         }
+ 
+         select {
+             cursor: pointer;
+         }
+     </style>
+ </head>
+ <body>
+ 
+     <h2>1. Menghitung total harga</h2>
+     <div class="container">
+         <p><strong>Harga Produk:</strong> Rp 500,000</p>
+         <p><strong>Diskon:</strong> 20%</p>
+         <button onclick="hitungDiskon()">Hitung Diskon</button>
+         <p id="diskonResult" class="result"></p>
+     </div>
+ 
+     <h2>2. Konversi suhu</h2>
+     <div class="container">
+         <input type="number" id="suhu" placeholder="Masukkan suhu">
+         <select id="fromScale">
+             <option value="C">Celsius (°C)</option>
+             <option value="F">Fahrenheit (°F)</option>
+             <option value="R">Reamur (°R)</option>
+             <option value="K">Kelvin (K)</option>
+         </select>
+         <select id="toScale">
+             <option value="C">Celsius (°C)</option>
+             <option value="F">Fahrenheit (°F)</option>
+             <option value="R">Reamur (°R)</option>
+             <option value="K">Kelvin (K)</option>
+         </select>
+         <button onclick="konversiSuhu()">Konversi</button>
+         <p id="suhuResult" class="result"></p>
+     </div>
+ 
+     <h2>3. Seperti kalkulator</h2>
+     <div class="container">
+         <input type="number" id="angka1" placeholder="Angka 1">
+         <input type="number" id="angka2" placeholder="Angka 2">
+         <select id="operator">
+             <option value="+">+</option>
+             <option value="-">-</option>
+             <option value="*">*</option>
+             <option value="/">/</option>
+         </select>
+         <button onclick="hitungKalkulator()">Hitung</button>
+         <p id="kalkulatorResult" class="result"></p>
+     </div>
+ 
+     <h2>4. Data KTP</h2>
+     <div id="ktp"></div>
+ 
+     <script type="text/javascript">
+         function hitungDiskon() {
+             const harga = 500000;
+             const diskon = 20;
+             const diskonNominal = harga * diskon / 100;
+             const totalBayar = harga - diskonNominal;
+             document.getElementById("diskonResult").innerHTML = 
+                 `Diskon: Rp ${diskonNominal.toLocaleString()} <br>Total yang harus dibayar: Rp ${totalBayar.toLocaleString()}`;
+         }
+ 
+         function konversiSuhu() {
+             const suhu = parseFloat(document.getElementById("suhu").value);
+             const fromScale = document.getElementById("fromScale").value;
+             const toScale = document.getElementById("toScale").value;
+             let hasil;
+ 
+             if (fromScale === 'C') {
+                 if (toScale === 'F') {
+                     hasil = (suhu * 9/5) + 32;
+                 } else if (toScale === 'R') {
+                     hasil = suhu * 4/5;
+                 } else if (toScale === 'K') {
+                     hasil = suhu + 273.15;
+                 }
+             } else if (fromScale === 'F') {
+                 if (toScale === 'C') {
+                     hasil = (suhu - 32) * 5/9;
+                 } else if (toScale === 'R') {
+                     hasil = (suhu - 32) * 4/9;
+                 } else if (toScale === 'K') {
+                     hasil = (suhu - 32) * 5/9 + 273.15;
+                 }
+             } else if (fromScale === 'R') {
+                 if (toScale === 'C') {
+                     hasil = suhu * 5/4;
+                 } else if (toScale === 'F') {
+                     hasil = (suhu * 9/4) + 32;
+                 } else if (toScale === 'K') {
+                     hasil = (suhu * 5/4) + 273.15;
+                 }
+             } else if (fromScale === 'K') {
+                 if (toScale === 'C') {
+                     hasil = suhu - 273.15;
+                 } else if (toScale === 'F') {
+                     hasil = (suhu - 273.15) * 9/5 + 32;
+                 } else if (toScale === 'R') {
+                     hasil = (suhu - 273.15) * 4/5;
+                 }
+             }
+ 
+             document.getElementById("suhuResult").innerHTML = 
+                 `${suhu}°${fromScale} = ${hasil.toFixed(2)}°${toScale}`;
+         }
+ 
+         function hitungKalkulator() {
+             const angka1 = parseFloat(document.getElementById("angka1").value);
+             const angka2 = parseFloat(document.getElementById("angka2").value);
+             const operator = document.getElementById("operator").value;
+             let hasil;
+ 
+             switch (operator) {
+                 case '+':
+                     hasil = angka1 + angka2;
+                     break;
+                 case '-':
+                     hasil = angka1 - angka2;
+                     break;
+                 case '*':
+                     hasil = angka1 * angka2;
+                     break;
+                 case '/':
+                     hasil = angka1 / angka2;
+                     break;
+             }
+ 
+             document.getElementById("kalkulatorResult").innerHTML = `Hasil: ${hasil}`;
+         }
+ 
+         function tampilkanKTP() {
+             let nama = "Nova";
+             let alamat = "Jalan Cirebon no.25";
+             let kelamin = "Laki-laki";
+             let ktpHTML = `
+                 <div class="ktp-container">
+                     <h2>KTP</h2>
+                     <p><strong>Nama:</strong> ${nama}</p>
+                     <p><strong>Alamat:</strong> ${alamat}</p>
+                     <p><strong>Kelamin:</strong> ${kelamin}</p>
+                 </div>
+             `;
+             document.getElementById('ktp').innerHTML = ktpHTML;
+         }
+ 
+         window.onload = tampilkanKTP;
+     </script>
+ 
+ </body>
+ </html>
+ 
